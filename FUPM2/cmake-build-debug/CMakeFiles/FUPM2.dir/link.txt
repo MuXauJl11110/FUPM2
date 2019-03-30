@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/FUPM2.dir/main.cpp.o  -o FUPM2 
