@@ -4,6 +4,7 @@
 #include <utility>
 
 using namespace std;
+
 vector<int> Registers(16);
 vector<int> Memory(1048576);
 
@@ -121,7 +122,7 @@ map <string, pair<code , mode>> cmdinfo = {
         {"storer2",make_pair(STORER2,RR)}
 };
 map <string, int> reg_info = {
-        {"r0",0},
+        {"r0",0}, // r0-r12 - свободно используются
         {"r1",1},
         {"r2",2},
         {"r3",3},
@@ -134,10 +135,62 @@ map <string, int> reg_info = {
         {"r10",10},
         {"r11",11},
         {"r12",12},
-        {"r13",13},
-        {"r14",14},
-        {"r15",15}
+        {"r13",13}, // Указатель фрейма вызова
+        {"r14",14}, // Указатель стека
+        {"r15",15} // Счётчик команд
 };
+void Switcher( int cmd, int reg_dst, int reg_src, int adress )
+// cmd - команды,
+// reg_dst - номер регистра-приёмника
+// reg_src - номер рестра-источника
+// adress - адрес или модификатор источника
+{
+    switch(cmd)
+    {
+        case '0':
+            break;
+        default:
+            break;
+    }
+}
+void Parcer( void )
+{
+    string cmd, reg_dst, reg_src;
+    int adress;
+
+    cin >> cmd;
+    switch(cmdinfo.find(cmd)->second.second)
+    {
+        case '0': // RM (8 старших бит код команды, 4 следующих бита — код регистра (приёмника или источника),
+                  // 20 младших бит — адрес в памяти в виде беззнакового числа от 0 до 2^20 − 1)
+            cin >> reg_dst;
+            cin >> adress;
+            Switcher(cmdinfo.find(cmd)->second.first, reg_info.find(reg_dst)->second, -1, adress);
+            break;
+        case '1': // RR (8 бит код команды, 4 бит код регистра-приёмника, 4 бит код регистра-источника,
+                  // 16 бит модификатор источника, число со знаком от −2^15 до 2^15 − 1)
+            cin >> reg_dst;
+            cin >> reg_src;
+            cin >> adress;
+            Switcher(cmdinfo.find(cmd)->second.first, reg_info.find(reg_dst)->second, reg_info.find(reg_src)->second, adress);
+            break;
+        case '2': // RI (8 бит код команды, 4 бит код регистра-приёмника,
+                   // 20 бит непосредственный операнд, число со знаком от −2^19 до 2^19)
+            cin >> reg_dst;
+            cin >> adress;
+            Switcher(cmdinfo.find(cmd)->second.first, reg_info.find(reg_dst)->second, reg_info.find(reg_src)->second, adress);
+            break;
+        default:
+            break;
+    }
+    //cout << cmdinfo.find(cmd)->first << " " << cmdinfo.find(cmd)->second.first << " " << cmdinfo.find(cmd)->second.second;
+}
+int main() {
+    Parcer();
+    //for (auto it = cmdinfo.begin(); it != cmdinfo.end(); it++)
+    //    cout << it->first << " " << it->second.first << " " << it->second.second <<  endl;
+    return 0;
+}
 
 /*void Parcer1( void ) // Функция распознания
 {
@@ -153,34 +206,3 @@ map <string, int> reg_info = {
     }
     cout << "Success";
 }*/
-
-void Parcer( void )
-{
-    string cmd, reg_dst, reg_src, adress;
-
-    cin >> cmd;
-    switch(cmdinfo.find(cmd)->second.second)
-    {
-        case '0': // RM
-            cin >>
-            break;
-        case '1': // RR
-
-            break;
-        case '2': // RI
-            break;
-        default:
-            break;
-    }
-    //cout << cmdinfo.find(cmd)->first << " " << cmdinfo.find(cmd)->second.first << " " << cmdinfo.find(cmd)->second.second;
-}
-void Switcher( void )
-{
-
-}
-int main() {
-    Parcer();
-    //for (auto it = cmdinfo.begin(); it != cmdinfo.end(); it++)
-    //    cout << it->first << " " << it->second.first << " " << it->second.second <<  endl;
-    return 0;
-}
