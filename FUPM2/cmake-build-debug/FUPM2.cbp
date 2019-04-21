@@ -8,28 +8,28 @@
 		<Option virtualFolders="CMake Files\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="/home/mike/Desktop/Informatics/FUPM2/FUPM2/cmake-build-debug"/>
+				<Option working_dir="/home/mike/Informatics/FUPM2/FUPM2/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/mike/Desktop/Informatics/FUPM2/FUPM2/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/mike/Desktop/Informatics/FUPM2/FUPM2/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/home/mike/Desktop/Informatics/FUPM2/FUPM2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/home/mike/Desktop/Informatics/FUPM2/FUPM2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/mike/Informatics/FUPM2/FUPM2/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/mike/Informatics/FUPM2/FUPM2/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/mike/Informatics/FUPM2/FUPM2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/mike/Informatics/FUPM2/FUPM2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="/home/mike/Desktop/Informatics/FUPM2/FUPM2/cmake-build-debug"/>
+				<Option working_dir="/home/mike/Informatics/FUPM2/FUPM2/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/mike/Desktop/Informatics/FUPM2/FUPM2/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/mike/Desktop/Informatics/FUPM2/FUPM2/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/home/mike/Desktop/Informatics/FUPM2/FUPM2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/home/mike/Desktop/Informatics/FUPM2/FUPM2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/mike/Informatics/FUPM2/FUPM2/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/mike/Informatics/FUPM2/FUPM2/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/mike/Informatics/FUPM2/FUPM2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/mike/Informatics/FUPM2/FUPM2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="FUPM2">
-				<Option output="/home/mike/Desktop/Informatics/FUPM2/FUPM2/cmake-build-debug/FUPM2" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/mike/Desktop/Informatics/FUPM2/FUPM2/cmake-build-debug"/>
+				<Option output="/home/mike/Informatics/FUPM2/FUPM2/cmake-build-debug/FUPM2" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/mike/Informatics/FUPM2/FUPM2/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -44,15 +44,15 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/mike/Desktop/Informatics/FUPM2/FUPM2/cmake-build-debug/Makefile&quot;  VERBOSE=1 FUPM2"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/mike/Desktop/Informatics/FUPM2/FUPM2/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/home/mike/Desktop/Informatics/FUPM2/FUPM2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/home/mike/Desktop/Informatics/FUPM2/FUPM2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/mike/Informatics/FUPM2/FUPM2/cmake-build-debug/Makefile&quot;  VERBOSE=1 FUPM2"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/mike/Informatics/FUPM2/FUPM2/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/mike/Informatics/FUPM2/FUPM2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/mike/Informatics/FUPM2/FUPM2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="FUPM2/fast">
-				<Option output="/home/mike/Desktop/Informatics/FUPM2/FUPM2/cmake-build-debug/FUPM2" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/mike/Desktop/Informatics/FUPM2/FUPM2/cmake-build-debug"/>
+				<Option output="/home/mike/Informatics/FUPM2/FUPM2/cmake-build-debug/FUPM2" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/mike/Informatics/FUPM2/FUPM2/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -67,27 +67,27 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/mike/Desktop/Informatics/FUPM2/FUPM2/cmake-build-debug/Makefile&quot;  VERBOSE=1 FUPM2/fast"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/mike/Desktop/Informatics/FUPM2/FUPM2/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/home/mike/Desktop/Informatics/FUPM2/FUPM2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/home/mike/Desktop/Informatics/FUPM2/FUPM2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/mike/Informatics/FUPM2/FUPM2/cmake-build-debug/Makefile&quot;  VERBOSE=1 FUPM2/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/mike/Informatics/FUPM2/FUPM2/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/mike/Informatics/FUPM2/FUPM2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/mike/Informatics/FUPM2/FUPM2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="/home/mike/Desktop/Informatics/FUPM2/FUPM2/cmake-build-debug"/>
+				<Option working_dir="/home/mike/Informatics/FUPM2/FUPM2/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/mike/Desktop/Informatics/FUPM2/FUPM2/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/mike/Desktop/Informatics/FUPM2/FUPM2/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/home/mike/Desktop/Informatics/FUPM2/FUPM2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/home/mike/Desktop/Informatics/FUPM2/FUPM2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/mike/Informatics/FUPM2/FUPM2/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/mike/Informatics/FUPM2/FUPM2/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/mike/Informatics/FUPM2/FUPM2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/mike/Informatics/FUPM2/FUPM2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/mike/Desktop/Informatics/FUPM2/FUPM2/main.cpp">
+		<Unit filename="/home/mike/Informatics/FUPM2/FUPM2/main.cpp">
 			<Option target="FUPM2"/>
 		</Unit>
-		<Unit filename="/home/mike/Desktop/Informatics/FUPM2/FUPM2/CMakeLists.txt">
+		<Unit filename="/home/mike/Informatics/FUPM2/FUPM2/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
 	</Project>

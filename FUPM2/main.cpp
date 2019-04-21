@@ -2,11 +2,12 @@
 #include <vector>
 #include <map>
 #include <utility>
+#include <cmath>
 
 using namespace std;
 
-vector<int> Registers(16);
-vector<int> Memory(1048576);
+vector<unsigned int> Registers(16);
+vector<unsigned int> Memory(1048576);
 
 enum code {
     HALT = 0,
@@ -139,55 +140,154 @@ map <string, int> reg_info = {
         {"r14",14}, // Указатель стека
         {"r15",15} // Счётчик команд
 };
-void Switcher( int cmd, int reg_dst, int reg_src, int adress )
+void Switcher( int cmd, int reg_dst, int reg_src, long modifier )
 // cmd - команды,
 // reg_dst - номер регистра-приёмника
 // reg_src - номер рестра-источника
-// adress - адрес или модификатор источника
+// modifier - адрес или модификатор источника
 {
+    unsigned long mul, div;
+
     switch(cmd)
     {
-        case '0':
+        case 0:
+            break;
+        case 1:
+            break;
+        case 2: // add (Сложение регистров. К R1 (регистру-первому аргументу) прибавляется содержимое R2
+                  // (регистра-второго аргумента), модифицированное непосредственным операндом)
+            Registers[reg_dst] += Registers[reg_src] + static_cast<unsigned int>(modifier);
+            break;
+        case 3: // addi (Сложение регистра с непосредственным операндом.
+                  // К содержимому R1 прибавляется значение Imm (непосредственного операнда))
+            Registers[reg_dst] += static_cast<unsigned int>(modifier);
+            break;
+        case 4: // sub (Вычитание регистров. Из R1 вычитается содержимое R2)
+            Registers[reg_dst] -= Registers[reg_src] + modifier;
+            break;
+        case 5: // subi (Вычитание из регистра непосредственного операнда)
+            Registers[reg_dst] -= static_cast<unsigned int>(modifier);
+            break;
+        case 6: // mul (Умножение регистров.
+                // Содержимое R1 умножается на R2. Результат помещается в пару регистров, начинающуюся с R1)
+            mul = static_cast<unsigned long>(Registers[reg_dst]) * (Registers[reg_src] + modifier);
+            Registers[reg_dst] = static_cast<unsigned int>(mul % static_cast<unsigned long>(pow(2.0, 32))); // Здесь можно сделать через побитовые операции
+            Registers[reg_dst + 1] = static_cast<unsigned int>(mul / static_cast<unsigned long>(pow(2.0, 32)));
+            break;
+        case 7: // muli (Умножение регистра R1 на Imm.
+                // Результат помещается в пару регистров, начинающуюся с R1.
+            mul = static_cast<unsigned long>(Registers[reg_dst]) * modifier;
+            Registers[reg_dst] = static_cast<unsigned int>(mul % static_cast<unsigned long>(pow(2.0, 32)));
+            Registers[reg_dst + 1] = static_cast<unsigned int>(mul / static_cast<unsigned long>(pow(2.0, 32)));
+            break;
+        case 8: // div (Деление регистров
+                // Младшие 32 бита первого операнда находятся в регистре R1, старшие — в регистре, номер которого на 1 больше R1.
+                // Второй операнд находится в регистре. Частное помещается в регистр R1, остаток — в следующий регистр.
+            div = static_cast<unsigned long>(Registers[reg_dst + 1]) * static_cast<unsigned long>(pow(2.0, 32)) + Registers[reg_dst];
+            Registers[reg_dst] = static_cast<unsigned int>(div / Registers[reg_src]);
+            Registers[reg_dst + 1] = static_cast<unsigned int>(div % Registers[reg_src]);
+            break;
+        case 9: // divi (Деление регистра на непосредственный операнд.
+                // Аналогично div)
+            div = static_cast<unsigned long>(Registers[reg_dst + 1]) * static_cast<unsigned long>(pow(2.0, 32)) + Registers[reg_dst];
+            Registers[reg_dst] = static_cast<unsigned int>(div / modifier);
+            Registers[reg_dst + 1] = static_cast<unsigned int>(div % modifier);
+            break;
+        case 12: // lc (Загрузка константы Imm в регистр R1.
+                 // Для загрузки констант, б´ольших 2^20 требуются дополнительные команды сдвига и логического сложения)
+            Registers[reg_dst] = static_cast<unsigned int>(modifier);
+            break;
+        case 13: // shl (Сдвинуть биты в регистре R1 влево на значение регистра R2)
+            Registers[reg_dst] <<= Registers[reg_src];
+            break;
+        case 14: // shli (Сдвинуть биты в регистре R1 влево на Imm)
+            Registers[reg_dst] <<= static_cast<unsigned int>(modifier);
+            break;
+        case 15: // shr (Сдвинуть биты в регистре R1 вправо на значение регистра R2.
+                 // Сдвижка на 32 или более разрядов обнуляет регистр R1)
+            if (Registers[reg_src] >= 32) {
+                Registers[reg_dst] = 0;
+                break;
+            }
+            Registers[reg_dst] >>= Registers[reg_src];
+            break;
+        case 16: // shri (Сдвинуть биты в регистре R1 вправо на Imm)
+            if (static_cast<unsigned int>(modifier) >= 32) {
+                Registers[reg_dst] = 0;
+                break;
+            }
+            Registers[reg_dst] >>= static_cast<unsigned int>(modifier);
+            break;
+        case 17: // and (Логическое И регистров R1 и R2. Результат — в регистре R1)
+            Registers[reg_dst] &= Registers[reg_src];
+            break;
+        case 18: // andi (Логическое И над регистром R1 и Imm)
+            Registers[reg_dst] &= static_cast<unsigned int>(modifier);
+            break;
+        case 19: // or (Логическое ИЛИ регистров R1 и R2. Результат — в регистре R1)
+            Registers[reg_dst] |= Registers[reg_src];
+            break;
+        case 20: // ori (Логическое ИЛИ над регистром R1 и Imm)
+            Registers[reg_dst] |= static_cast<unsigned int>(modifier);
+            break;
+        case 21: // xor (Логическое исключающее ИЛИ регистров R1 и R2. Результат — в регистре R1)
+            Registers[reg_dst] ^= Registers[reg_src];
+            break;
+        case 22: // xori (Логическое исключающее ИЛИ над регистром R1 и Imm)
+            Registers[reg_dst] ^= static_cast<unsigned int>(modifier);
+            break;
+        case 23: // not (Поразрядное НЕ над всеми битами R1.
+                 // Непосредственный операнд игнорируется, но он может присутствовать в команде)
+            Registers[reg_dst] ^= static_cast<unsigned int>(pow(2.0, 32) - 1);
             break;
         default:
             break;
     }
 }
-void Parcer( void )
+void ParcerCmd( void )
 {
     string cmd, reg_dst, reg_src;
-    int adress;
+    long modifier;
 
-    cin >> cmd;
-    switch(cmdinfo.find(cmd)->second.second)
-    {
-        case '0': // RM (8 старших бит код команды, 4 следующих бита — код регистра (приёмника или источника),
-                  // 20 младших бит — адрес в памяти в виде беззнакового числа от 0 до 2^20 − 1)
-            cin >> reg_dst;
-            cin >> adress;
-            Switcher(cmdinfo.find(cmd)->second.first, reg_info.find(reg_dst)->second, -1, adress);
+    while (1) {
+        cin >> cmd;
+        if (cmdinfo.find(cmd) == cmdinfo.end())
             break;
-        case '1': // RR (8 бит код команды, 4 бит код регистра-приёмника, 4 бит код регистра-источника,
-                  // 16 бит модификатор источника, число со знаком от −2^15 до 2^15 − 1)
-            cin >> reg_dst;
-            cin >> reg_src;
-            cin >> adress;
-            Switcher(cmdinfo.find(cmd)->second.first, reg_info.find(reg_dst)->second, reg_info.find(reg_src)->second, adress);
-            break;
-        case '2': // RI (8 бит код команды, 4 бит код регистра-приёмника,
-                   // 20 бит непосредственный операнд, число со знаком от −2^19 до 2^19)
-            cin >> reg_dst;
-            cin >> adress;
-            Switcher(cmdinfo.find(cmd)->second.first, reg_info.find(reg_dst)->second, reg_info.find(reg_src)->second, adress);
-            break;
-        default:
-            break;
+        switch (cmdinfo.find(cmd)->second.second) {
+            case 0: // RM (8 старших бит код команды, 4 следующих бита — код регистра (приёмника или источника),
+                // 20 младших бит — адрес в памяти в виде беззнакового числа от 0 до 2^20 − 1)
+                cin >> reg_dst;
+                cin >> modifier;
+                Switcher(cmdinfo.find(cmd)->second.first, reg_info.find(reg_dst)->second, 0, modifier);
+                break;
+            case 1: // RR (8 бит код команды, 4 бит код регистра-приёмника, 4 бит код регистра-источника,
+                // 16 бит модификатор источника, число со знаком от −2^15 до 2^15 − 1)
+                cin >> reg_dst;
+                cin >> reg_src;
+                cin >> modifier;
+                Switcher(cmdinfo.find(cmd)->second.first, reg_info.find(reg_dst)->second,
+                         reg_info.find(reg_src)->second, modifier);
+                break;
+            case 2: // RI (8 бит код команды, 4 бит код регистра-приёмника,
+                // 20 бит непосредственный операнд, число со знаком от −2^19 до 2^19)
+                cin >> reg_dst;
+                cin >> modifier;
+                Switcher(cmdinfo.find(cmd)->second.first, reg_info.find(reg_dst)->second, 0, modifier);
+                break;
+            default:
+                break;
+        }
     }
     //cout << cmdinfo.find(cmd)->first << " " << cmdinfo.find(cmd)->second.first << " " << cmdinfo.find(cmd)->second.second;
 }
 int main() {
-    Parcer();
+    cout << Registers[0] << " " << Registers[1] << endl;
+
+    ParcerCmd();
+
+    cout << Registers[0] << " " << Registers[1] << endl;
     //for (auto it = cmdinfo.begin(); it != cmdinfo.end(); it++)
+    //    if (cmdinfo.find(it->first)->second.second == 0)
     //    cout << it->first << " " << it->second.first << " " << it->second.second <<  endl;
     return 0;
 }
