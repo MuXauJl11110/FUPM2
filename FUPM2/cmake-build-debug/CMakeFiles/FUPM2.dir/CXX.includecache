@@ -15,6 +15,16 @@ map
 -
 utility
 -
+cmath
+-
+fstream
+-
+string
+-
+algorithm
+-
+cassert
+-
 cstdio
 -
 

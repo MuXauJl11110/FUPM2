@@ -1,0 +1,3 @@
+main:
+  jmp r0 2212
+  end main
