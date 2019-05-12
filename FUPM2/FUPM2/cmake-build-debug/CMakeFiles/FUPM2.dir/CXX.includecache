@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/mike/Informatics/FUPM2/FUPM2/main.cpp
+iostream
+-
+vector
+-
+map
+-
+utility
+-
+cmath
+-
+fstream
+-
+string
+-
+algorithm
+-
+cassert
+-
+cstdio
+-
+
